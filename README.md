@@ -1,4 +1,4 @@
-# triangle-buffer [![Build Status][1]][2]
+# triangle-buffer
 
 A DOM based 3D triangle renderer
 
@@ -45,6 +45,3 @@ triangleBuffer.end();
 
 ## MIT Licenced
 
-
-  [1]: https://secure.travis-ci.org/Matt-Esch/triangle-buffer.png
-  [2]: http://travis-ci.org/Matt-Esch/triangle-buffer
