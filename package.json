@@ -2,7 +2,7 @@
   "name": "triangle-buffer",
   "version": "0.1.0",
   "description": "A DOM based 3D triangle renderer",
-  "keywords": [],
+  "keywords": ["triangle", "3D", "DOM", "render", "rendering"],
   "author": "Matt-Esch <matt@mattesch.info>",
   "repository": "git://github.com/Matt-Esch/triangle-buffer.git",
   "main": "index",
