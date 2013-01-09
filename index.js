@@ -90,7 +90,7 @@ function createTriangle(t) {
 }
 
 function triangleFromMatrix(m) {
-    this._matrixBuffer.push(numeric.dot(this._transform, numeric.dot(this._viewport.projection, m)));
+    this._matrixBuffer.push(numeric.dot(this._viewport.projection, numeric.dot(this._transform, m)));
 }
 
 function matrixFromTriangle(t) {
