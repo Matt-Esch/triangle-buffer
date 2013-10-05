@@ -1,6 +1,6 @@
-var numeric = require('numeric'),
-    firstKey = require('firstkey'),
-    generate = require('triangle-homography');
+var numeric = require("numeric"),
+    firstKey = require("firstkey"),
+    generate = require("triangle-homography");
 
 module.exports = createBuffer;
 
@@ -17,22 +17,22 @@ function createBuffer(container, viewport) {
 }
 
 function TriangleBuffer(container, viewport) {
-    var triangle = document.createElement('div'),
+    var triangle = document.createElement("div"),
         transformOriginKey = firstKey(
             triangle.style,
-            'transformOrigin',
-            'webkitTransformOrigin',
-            'MozTransformOrigin',
-            'oTransformOrigin',
-            'msTransformOrigin'
+            "transformOrigin",
+            "webkitTransformOrigin",
+            "MozTransformOrigin",
+            "oTransformOrigin",
+            "msTransformOrigin"
         ),
         transformKey = firstKey(
             triangle.style,
-            'transform',
-            'webkitTransform',
-            'MozTransform',
-            'oTransform',
-            'msTransform'
+            "transform",
+            "webkitTransform",
+            "MozTransform",
+            "oTransform",
+            "msTransform"
         );
 
     triangle.style.top = "0px";
@@ -71,7 +71,11 @@ TriangleBuffer.prototype.color = setColor;
 TriangleBuffer.prototype.end = endDraw;
 
 TriangleBuffer.prototype._depthSort = depthSort;
-TriangleBuffer.prototype._generator = generate([[0,0,0], [0, 256, 0], [256, 0, 0]]);
+TriangleBuffer.prototype._generator = generate([
+    [0,0,0],
+    [0, 256, 0],
+    [256, 0, 0]
+]);
 TriangleBuffer.prototype._getTriangle = getTriangle;
 TriangleBuffer.prototype._identity = [
         [1,0,0,0],
@@ -90,7 +94,10 @@ function createTriangle(t) {
 }
 
 function triangleFromMatrix(m) {
-    this._matrixBuffer.push(numeric.dot(this._viewport.projection, numeric.dot(this._transform, m)));
+    this._matrixBuffer.push(
+        numeric.dot(
+            this._viewport.projection,
+            numeric.dot(this._transform, m)));
 }
 
 function matrixFromTriangle(t) {
@@ -138,8 +145,7 @@ function translate(x, y, z) {
 }
 
 function transform(m) {
-    var transform = this._transform;
-    this._transform = numeric.dot(m, transform);
+    this._transform = numeric.dot(m, this._transform);
 }
 
 function setColor(color) {
@@ -178,22 +184,18 @@ function endDraw() {
 
         // Manually unwound loop
         newTriangle.style[transformKey] = "matrix3d(" +
-            m[0][0].toFixed(5) + ',' +
-            m[1][0].toFixed(5) + ',' +
-            m[2][0].toFixed(5) + ',' +
-            m[3][0].toFixed(5) + ',' +
-            m[0][1].toFixed(5) + ',' +
-            m[1][1].toFixed(5) + ',' +
-            m[2][1].toFixed(5) + ',' +
-            m[3][1].toFixed(5) + ',' +
-            m[0][2].toFixed(5) + ',' +
-            m[1][2].toFixed(5) + ',' +
-            m[2][2].toFixed(5) + ',' +
-            m[3][2].toFixed(5) + ',' +
-            m[0][3].toFixed(5) + ',' +
-            m[1][3].toFixed(5) + ',' +
-            m[2][3].toFixed(5) + ',' +
-            m[3][3].toFixed(5) + ')';
+            m[0][0].toFixed(5) + "," +
+            m[1][0].toFixed(5) + "," +
+            m[2][0].toFixed(5) + "," +
+            '0,' +
+            m[0][1].toFixed(5) + "," +
+            m[1][1].toFixed(5) + "," +
+            m[2][1].toFixed(5) + "," +
+            '0,0,0,1,0,' +
+            m[0][3].toFixed(5) + "," +
+            m[1][3].toFixed(5) + "," +
+            m[2][3].toFixed(5) +
+            ",1)";
     }
 
     for (i = this._bufferIndex; i < bufferLength; i += 1)
