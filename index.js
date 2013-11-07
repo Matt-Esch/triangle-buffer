@@ -64,6 +64,7 @@ TriangleBuffer.prototype.drawMatrix = triangleFromMatrix;
 TriangleBuffer.prototype.triangleMatrix = matrixFromTriangle;
 TriangleBuffer.prototype.matrixNormal = matrixNormal;
 TriangleBuffer.prototype.loadIdentity = loadIdentity;
+TriangleBuffer.prototype.loadMatrix = loadMatrix;
 TriangleBuffer.prototype.pushMatrix = pushMatrix;
 TriangleBuffer.prototype.popMatrix = popMatrix;
 TriangleBuffer.prototype.translate = translate;
@@ -146,6 +147,10 @@ function getTriangle() {
 
 function loadIdentity() {
     this._transform = this._identity;
+}
+
+function loadMatrix(matrix) {
+    this._transform = matrix;
 }
 
 function pushMatrix() {
