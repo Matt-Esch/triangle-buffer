@@ -62,6 +62,7 @@ TriangleBuffer.prototype.begin = beginDraw;
 TriangleBuffer.prototype.drawTriangle = createTriangle;
 TriangleBuffer.prototype.drawMatrix = triangleFromMatrix;
 TriangleBuffer.prototype.triangleMatrix = matrixFromTriangle;
+TriangleBuffer.prototype.matrixNormal = matrixNormal;
 TriangleBuffer.prototype.loadIdentity = loadIdentity;
 TriangleBuffer.prototype.pushMatrix = pushMatrix;
 TriangleBuffer.prototype.popMatrix = popMatrix;
@@ -102,6 +103,25 @@ function triangleFromMatrix(m) {
 
 function matrixFromTriangle(t) {
     return numeric.dot(reflectXAxis, this._generator(t));
+}
+
+function matrixNormal(matrix) {
+    var a = numeric.dot(matrix, [0,256,0,1]),
+        b = numeric.dot(matrix, [256,0,0,1]);
+
+    a[0] -= matrix[0][3];
+    a[1] -= matrix[1][3];
+    a[2] -= matrix[2][3];
+    b[0] -= matrix[0][3];
+    b[1] -= matrix[1][3];
+    b[2] -= matrix[2][3];
+
+    return [
+        a[1]*b[2] - a[2]*b[1],
+        a[2]*b[0] - a[0]*b[2],
+        a[0]*b[1] - a[1]*b[0],
+        1
+    ];
 }
 
 function getTriangle() {
@@ -198,8 +218,7 @@ function endDraw() {
             ",1)";
     }
 
-    for (i = this._bufferIndex; i < bufferLength; i += 1)
-    {
+    for (i = this._bufferIndex; i < bufferLength; i += 1) {
         buffer[i].style.display = "none";
     }
 }
