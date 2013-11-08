@@ -70,7 +70,7 @@ TriangleBuffer.prototype.popMatrix = popMatrix;
 TriangleBuffer.prototype.translate = translate;
 TriangleBuffer.prototype.transform = transform;
 TriangleBuffer.prototype.color = setColor;
-riangleBuffer.prototype.backfaceVisible = setBackfaceVisibility;
+TriangleBuffer.prototype.backfaceVisible = setBackfaceVisibility;
 TriangleBuffer.prototype.end = endDraw;
 
 TriangleBuffer.prototype._depthSort = depthSort;
