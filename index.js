@@ -70,6 +70,7 @@ TriangleBuffer.prototype.popMatrix = popMatrix;
 TriangleBuffer.prototype.translate = translate;
 TriangleBuffer.prototype.transform = transform;
 TriangleBuffer.prototype.color = setColor;
+riangleBuffer.prototype.backfaceVisible = setBackfaceVisibility;
 TriangleBuffer.prototype.end = endDraw;
 
 TriangleBuffer.prototype._depthSort = depthSort;
@@ -96,10 +97,19 @@ function createTriangle(t) {
 }
 
 function triangleFromMatrix(m) {
-    this._matrixBuffer.push(
-        numeric.dot(
-            this._viewport.projection,
-            numeric.dot(this._transform, m)));
+    var transform = numeric.dot(this._viewport.projection, this._transform),
+        matrix = numeric.dot(transform, m),
+        normal;
+
+    if (m.normal) {
+        normal = numeric.dot(transform, m.normal);
+        normal[0] -= transform[0][3];
+        normal[1] -= transform[1][3];
+        normal[2] -= transform[2][3];
+        matrix.normal = normal;
+    }
+
+    this._matrixBuffer.push(matrix);
 }
 
 function matrixFromTriangle(t) {
@@ -175,6 +185,14 @@ function transform(m) {
 
 function setColor(color) {
     this._triangle.style.borderTopColor = this._color = color;
+}
+
+function setBackfaceVisibility(enabled) {
+    if (enabled === true) {
+        this._triangle.style[this._backfaceKey] = this._backfaceVisible = '';
+    } else if (enabled === false) {
+        this._triangle.style[this._backfaceKey] = this._backfaceVisibe = 'hidden';
+    }
 }
 
 function depthSort(a, b) {
